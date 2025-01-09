@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background: radial-gradient(circle, #1a1a40, #000);
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        header nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header nav a:hover {
+            color: #00d4ff;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            position: relative;
+            padding: 0 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 50%;
+        }
+
+        .hero h1 {
+            font-size: 3rem; 
+            background: linear-gradient(to right, #ffffff);
+            -webkit-background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin: 20px 0;
+        }
+
+        .hero span {
+            font-size: 1.2rem;
+            background: linear-gradient(to right, #00d4ff, #a445ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .full-stack {
+            font-weight: bold;
+        }
+
+        .hero a {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            color: #fff;
+            text-decoration: none;
+            background: #00d4ff;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .hero a:hover {
+            background: #a445ff;
+        }
+
+        .skills-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            width: 80%;
+        }
+
+        .skills .skill img {
+            width: 70px;
+            height: 70px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .skills .skill img:hover {
+            transform: scale(1.2);
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p, .hero span {
+                font-size: 1rem;
+            }
+
+            .skills-container {
+                justify-content: center;
+            }
+
+            .skills {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .hero p, .hero span {
+                font-size: 0.9rem;
+            }
+
+            .skills img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Kareem Majadly</div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Providing <span style="font-weight: bold; font-size: 50px;">the best</span><br>project exprience</h1>
+            <h2>I'm a <span class="full-stack">Full Stack Web Developer</span> with a <br> passion for creating innovative solutions and <br> constantly learning new technologies</h2>
+        </div>
+        <div class="skills-container">
+            <div class="skills">
+                <div class="skill"><img src="html.png" alt="HTML"></div>
+                <div class="skill"><img src="css.png" alt="CSS"></div>
+                <div class="skill"><img src="js.png" alt="JavaScript"></div>
+                <div class="skill"><img src="ts.png" alt="TypeScript"></div>
+                <div class="skill"><img src="react.png" alt="React"></div>
+                <div class="skill"><img src="react-native.png" alt="React Native"></div>
+                <div class="skill"><img src="git.png" alt="Git"></div>
+                <div class="skill"><img src="github.png" alt="GitHub"></div>
+                <div class="skill"><img src="api.png" alt="APIs"></div>
+                <div class="skill"><img src="mongo.png" alt="MongoDB"></div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="background"></canvas>
+
+    <script>
+        const canvas = document.getElementById('background');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let stars = [];
+
+        function createStars(count) {
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 1.5,
+                    speed: Math.random() * 0.5 + 0.1,
+                });
+            }
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
+                star.y += star.speed;
+                if (star.y > canvas.height) star.y = 0;
+            });
+        }
+
+        createStars(200);
+
+        function animate() {
+            drawStars();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            stars = [];
+            createStars(200);
+        });
+    </script>
+</body>
+</html>
